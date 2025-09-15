@@ -1,4 +1,4 @@
-quote = "Simplicity is the ultimate sophistication."
+quote = "Simple qoute."
 
 # 1. Print the total number of characters in the quote.
 print(f"Length: {len(quote)}")
@@ -11,4 +11,4 @@ print(f"Last char: {quote[-1]}")
 
 # 4. Using slicing, extract and print the word "ultimate".
 # Hint: Find the start and end index of the word first.
-print(f"Slice: {quote[18:26]}")
+print(f"Slice: {quote[0:7]}")
