@@ -1,49 +1,23 @@
-# ===============================
-# 1) LIST — Tính chuỗi drawdown
-# ===============================
 def compute_drawdowns(prices):
-    """
-    Trả về:
-      - drawdowns: list % drawdown tại từng thời điểm (âm hoặc 0)
-      - max_dd:    mức drawdown lớn nhất (âm, vd: -12.3 nghĩa -12.3%)
-    Yêu cầu: prices là list[float] theo thời gian (cũ -> mới).
-    """
     if not prices:
         return [], 0.0
 
     peak = prices[0]
     drawdowns = []
-    max_dd = 0.0  # số âm nhỏ nhất theo trị tuyệt đối lớn nhất
+    max_dd = 0.0 
 
     for p in prices:
         if p > peak:
             peak = p
         dd = (p - peak) / peak * 100.0
         drawdowns.append(dd)
-        if dd < max_dd:
+        if dd < max_dd: 
             max_dd = dd
     return drawdowns, max_dd
 
 
-# =============================================
-# 2) DICT — Gộp lệnh để ra vị thế và P&L tạm tính
-# =============================================
 def build_portfolio_positions(trades, last_prices):
-    """
-    trades: list[dict] mỗi dict: {"symbol": str, "side": "BUY"/"SELL", "qty": int/float, "price": float}
-    last_prices: dict {symbol: last_price}
-    Trả về dict:
-      {
-        symbol: {
-          "net_qty": ...,
-          "avg_cost": ...,           # giá vốn bình quân có trọng số
-          "last_price": ...,
-          "market_value": ...,
-          "unrealized_pnl": ...
-        },
-        ...
-      }
-    """
+    
     positions = {}
 
     for t in trades:
@@ -88,14 +62,9 @@ def build_portfolio_positions(trades, last_prices):
     return positions
 
 
-# ===================================================
-# 3) SET — Tìm danh mục trùng nhau giữa 2 danh sách
-# ===================================================
+
 def overlapping_holdings(portfolio_a, portfolio_b):
-    """
-    portfolio_a, portfolio_b: iterable các mã (có thể trùng)
-    Trả về set các mã xuất hiện ở CẢ HAI danh mục (giao hai tập).
-    """
+    
     return set(portfolio_a) & set(portfolio_b)
 
 
@@ -121,7 +90,7 @@ def risk_summary(returns):
 
 
 # -------------------
-# Demo nho nhỏ
+# Demo
 # -------------------
 if __name__ == "__main__":
     prices = [100, 98, 102, 97, 95, 99, 101, 103]  # ví dụ giá đóng cửa
