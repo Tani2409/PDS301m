@@ -24,7 +24,7 @@ while True:
     choice = input("Chọn sản phẩm (hoặc nhập 'exit' để kết thúc): ").capitalize().strip()
 
     if choice == "Exit":
-        print("\nKết thúc mua sắm.")
+        print("\nBye.")
         break
 
     # Kiểm tra hợp lệ
