@@ -27,3 +27,35 @@
 # vehicle2.display_properties()
 
 
+class Student:
+    school_name = "FPT University"
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def display_student_info(self):
+        print("Student Name:", self.name)
+        print("Age:", self.age)
+        print("School Name:", Student.school_name)
+
+    def change_name(self):
+        new_name = input("Enter new name: ")
+        self.name = new_name
+        print("Name changed successfully!")
+
+    # class method
+    @classmethod
+    def change_school_name(cls, new_school_name):
+        cls.school_name = new_school_name
+        print("School name changed successfully!")
+
+
+# --- Tạo và chạy đối tượng ---
+s1 = Student("Tanh", 21)
+s1.display_student_info()
+
+s1.change_name()
+Student.change_school_name("Hutech")
+
+s1.display_student_info()
