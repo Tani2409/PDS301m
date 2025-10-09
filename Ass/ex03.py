@@ -1,8 +1,8 @@
 # dữ liệu gốc
-items_list   = ['Apple', 'Milk', 'Chips', 'Carrot']
-prices_dict  = {'Apple': 2.0, 'Milk': 3.0, 'Chips': 1.0, 'Carrot': 2.5}
+items_list   = ['Apple', 'Carrot' ,'Milk' ,'Chips']
+prices_dict  = {'Apple': 2.0, 'Carrot': 2.5,'Milk': 3.0, 'Chips': 1.0 }
 category_list = ['Fruits', 'Vegatables', 'Dairy', 'Snacks']         
-discount_dict = {'Fruits': 0.10, 'Vegatables': 0.05, 'Dairy': 0.07, 'Snacks': 0.10}
+discount_dict = {'Fruits': 0.10, 'Vegatables': 0.05, 'Dairy': 0 .07, 'Snacks': 0.10}
 
 ITEM_TO_CATEGORY = dict(zip(items_list, category_list))
 
