@@ -1,0 +1,4 @@
+ID,Name,Age,Weight(kg),Height(cm),BloodPressure(Systolic/Diastolic)
+1,tanh,21,90.0,180.0,120/90
+2,huy,21,60.0,160.0,145/90
+3,han,21,45.0,150.0,120/90
