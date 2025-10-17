@@ -121,9 +121,13 @@ class Clinic:
 
     def sort_patients_by_bmi(self):
         self.patients.sort(key=lambda p: (p.calculate_BMI() is None, p.calculate_BMI() or 0))
+        print("Sort Done by BMI asscending")
 
     def sort_patients_by_age(self):
         self.patients.sort(key=lambda p: p.age)
+        print("Sort Done by age asscending")
+
+
 
 
 def display_menu():
