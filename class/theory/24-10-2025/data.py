@@ -27,21 +27,21 @@ import os
 # print("Data written to data.csv")
 
 os.chdir(r"C:\Users\ADMIN\Documents\GitHub\PDS301m\class\theory")
-df= pd.read_csv("worldwired_tour.csv")
-# print(df)
-print(df.head(3))  # First 3 rows
-print(df.tail(2))  # Last 2 rows
-df.info()
-print(df.describe())
-print(df.shape)
+df= pd.read_csv("dataClean.csv")
+# # print(df)
+# print(df.head(3))  # First 3 rows
+# print(df.tail(2))  # Last 2 rows
+# df.info()
+# print(df.describe())
+# print(df.shape)
 print(df.columns)
-print(df.index)
-pd.concat([df.head(20), df.tail(20)])
+# print(df.index)
+# pd.concat([df.head(20), df.tail(20)])
 
-df = pd.read_csv("worldwired_tour.csv", na_values={
-'price':["?","n.a"],
-'stroke':["?","n.a"],
-'horsepower':["?","n.a"],
-'peak-rpm':["?","n.a"],
-'average-mileage':["?","n.a"]})
-print (df)
+# df = pd.read_csv("worldwired_tour.csv", na_values={
+# 'price':["?","n.a"],
+# 'stroke':["?","n.a"],
+# 'horsepower':["?","n.a"],
+# 'peak-rpm':["?","n.a"],
+# 'average-mileage':["?","n.a"]})
+# print (df)
