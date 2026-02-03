@@ -1,9 +1,6 @@
-def celsius_to_fahrenheit(celsius):
-    """Converts a temperature from Celsius to Fahrenheit."""
-    fahrenheit = (celsius * 9/5) + 32
-    return fahrenheit
+def C_to_F(C):
+    return (C * 9/5) + 32
 
-# Test the function
-temp_c = 25
-temp_f = celsius_to_fahrenheit(temp_c)
-print(f"{temp_c}°C is equal to {temp_f}°F.")
+temp_C= 25
+temp_F= C_to_F(temp_C)
+print(f"{temp_C} is equal to {temp_F}")
