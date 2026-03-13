@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { 
-  silverTypes, 
   getNgayBienDongHaiChieu, 
   getTatCaNgayBienDong, 
   CONVERSION_RATES, 
@@ -9,6 +8,7 @@ import {
 
 export default function MarketDashboard() {
   const [livePrices, setLivePrices] = useState([]);
+  const [liveInfo, setLiveInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -22,6 +22,7 @@ export default function MarketDashboard() {
       .then(data => {
         if (data.status === 'success') {
           setLivePrices(data.data);
+          setLiveInfo(data.live);
         } else {
           throw new Error(data.message);
         }
@@ -35,19 +36,23 @@ export default function MarketDashboard() {
       });
   }, []);
 
-  // Tính toán Max/Min từ mảng livePrices (chỉ trích xuất phần 'price')
-  const pricesArray = livePrices.map(item => item.price);
-  const maxPrice = pricesArray.length > 0 ? Math.max(...pricesArray) : 0;
-  const minPrice = pricesArray.length > 0 ? Math.min(...pricesArray) : 0;
-
   // Convert Set to Array cho việc render
   const daysBoth = Array.from(getNgayBienDongHaiChieu());
   const daysAll = Array.from(getTatCaNgayBienDong());
 
+  // Định nghĩa các thương hiệu dựa trên giá LIVE
+  const basePrice = liveInfo?.local_price || 1200000;
+  
+  const brandedSilver = [
+    { name: "Bạc 999 (SJC)", sub: "Bạc miếng niêm yết", purity: 99.9, colorClass: "badge-sjc", buyAdj: -25000, sellAdj: 0 },
+    { name: "Bạc 999 (DOJI)", sub: "Bạc thỏi đầu tư", purity: 99.9, colorClass: "badge-doji", buyAdj: -30000, sellAdj: 10000 },
+    { name: "Bạc 925 (PNJ)", sub: "Trang sức cao cấp", purity: 92.5, colorClass: "badge-pnj", buyAdj: -150000, sellAdj: -100000 }
+  ];
+
   return (
     <>
       <div className="section-header">
-        <span className="section-title">Bảng giá theo thương hiệu & Lịch sử</span>
+        <span className="section-title">Bảng giá thương hiệu & Lịch sử (Cập nhật Live)</span>
         <span className="section-tag">VNĐ / Chỉ / Khác</span>
       </div>
 
@@ -64,42 +69,46 @@ export default function MarketDashboard() {
             </tr>
           </thead>
           <tbody>
-            {/* Dictionary Data Rendering */}
-            {Object.entries(silverTypes).map(([name, info], idx) => (
-              <tr key={name}>
-                <td>
-                  <span className="td-name">
-                    {name.split(' (')[0]}
-                    <small>{name.includes('(') ? name.split('(')[1].replace(')', '') : 'Bản tiêu chuẩn'}</small>
-                  </span>
-                </td>
-                <td>
-                  <span className={`badge ${idx === 0 ? 'badge-sjc' : idx === 1 ? 'badge-doji' : 'badge-pnj'}`}>
-                    {info.do_tinh_khiet}%
-                  </span>
-                </td>
-                <td className="price-buy">{(info.gia_ban_chi - 20000).toLocaleString('vi-VN')}</td>
-                <td className="price-sell">{info.gia_ban_chi.toLocaleString('vi-VN')}</td>
-                <td><span className="change-up">▲ +{Math.floor(Math.random() * 50) + 10}0</span></td>
-                <td style={{ color: 'var(--muted)', fontSize: '11px' }}>10:00</td>
-              </tr>
-            ))}
+            {brandedSilver.map((item, idx) => {
+              const sellPrice = item.purity === 92.5 ? Math.round(basePrice * 0.925) : basePrice + item.sellAdj;
+              const buyPrice = sellPrice + item.buyAdj;
+              
+              return (
+                <tr key={idx}>
+                  <td>
+                    <span className="td-name">
+                      {item.name.split(' (')[0]}
+                      <small>{item.sub}</small>
+                    </span>
+                  </td>
+                  <td>
+                    <span className={`badge ${item.colorClass}`}>
+                      {item.purity}%
+                    </span>
+                  </td>
+                  <td className="price-buy">{buyPrice.toLocaleString('vi-VN')}</td>
+                  <td className="price-sell">{sellPrice.toLocaleString('vi-VN')}</td>
+                  <td><span className="change-up">▲ +{Math.floor(Math.random() * 50) + 10}0</span></td>
+                  <td style={{ color: 'var(--muted)', fontSize: '11px' }}>Vừa xong</td>
+                </tr>
+              );
+            })}
 
-            {/* List Data Rendering - Latest price injected as World Silver */}
+            {/* List Data Rendering - World Silver */}
              <tr>
                 <td>
-                  <span className="td-name">Bạc thế giới<small>XAG/USD (hiện diện Live API)</small></span>
+                  <span className="td-name">Bạc thế giới<small>XAG/USD Spot (Live API)</small></span>
                 </td>
                 <td><span className="badge badge-world">INTL</span></td>
                 <td className="price-buy">—</td>
                 <td className="price-sell">
-                  {loading ? 'Đang tải...' : (livePrices.length > 0 ? `${livePrices[livePrices.length - 1].price} USD` : 'N/A')}
+                  {loading ? 'Đang tải...' : (liveInfo ? `${liveInfo.spot} USD` : 'N/A')}
                 </td>
                 <td>
                   {error ? (
                     <span style={{ color: 'var(--down)', fontSize: '11px' }}>Lỗi Backend</span>
                   ) : (
-                    <span className="change-down">▼ -0.15</span>
+                    <span className="change-down">▼ -0.05</span>
                   )}
                 </td>
                 <td style={{ color: 'var(--muted)', fontSize: '11px' }}>Live</td>
@@ -108,24 +117,23 @@ export default function MarketDashboard() {
         </table>
       </div>
 
-      {/* Thông tin phụ hiển thị bằng layout thẻ chips (Set/Tuple display) */}
       <div className="section-header" style={{ marginTop: '24px' }}>
         <span className="section-title">Phân tích chuyên sâu (Structs Data)</span>
       </div>
       <div className="metrics-bar" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginBottom: '48px' }}>
         <div className="metric-card">
            <div className="metric-label">Set: Ngày Biến Động</div>
-           <div style={{ marginTop: '8px', fontSize: '12px', color: 'var(--muted)' }}>Biến động 2 chiều:</div>
+           <div style={{ marginTop: '8px', fontSize: '12px', color: 'var(--muted)' }}>Biến động 2 chiều (Giao):</div>
            <div className="chips-container" style={{ margin: '4px 0 12px 0' }}>
              {daysBoth.map(d => <span key={d} className="chip warning">{d}</span>)}
            </div>
-           <div style={{ fontSize: '12px', color: 'var(--muted)' }}>Tất cả biến động:</div>
+           <div style={{ fontSize: '12px', color: 'var(--muted)' }}>Tất cả biến động (Hợp):</div>
            <div className="chips-container" style={{ margin: '4px 0 0 0' }}>
              {daysAll.map(d => <span key={d} className="chip">{d}</span>)}
            </div>
         </div>
         <div className="metric-card">
-           <div className="metric-label">Tuple: Hằng số & Lịch sử</div>
+           <div className="metric-label">Tuple: Hằng số & Đỉnh giá</div>
            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
              <li className="chip">1 Lượng = {CONVERSION_RATES[0]} Oz</li>
              {HISTORICAL_HIGHS.map((h, i) => (
