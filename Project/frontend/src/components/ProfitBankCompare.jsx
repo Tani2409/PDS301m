@@ -19,73 +19,81 @@ export default function ProfitBankCompare() {
   };
 
   return (
-    <div className="glass-card">
-      <h2>🏦 Bạc vs Ngân Hàng</h2>
-      <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.9rem' }}>
-        So sánh lợi nhuận giữa đầu tư bạc và gửi tiết kiệm cùng kỳ hạn.
+    <div>
+      <div className="section-header" style={{ marginBottom: '16px' }}>
+        <span className="section-title">So sánh Đầu Tư Bạc vs Gửi Ngân Hàng</span>
+      </div>
+      <p style={{ color: 'var(--muted)', fontSize: '11px', marginBottom: '24px', letterSpacing: '0.04em' }}>
+        Đánh giá hiệu quả đầu tư so với mức lãi suất tiết kiệm cố định cùng kỳ hạn.
       </p>
 
-      <div style={{ display: 'flex', gap: '1rem' }}>
+      <div style={{ display: 'flex', gap: '16px' }}>
         <div className="input-group" style={{ flex: 1 }}>
           <label>Vốn đầu tư (VND)</label>
-          <input 
-            type="number" 
-            value={capital} 
-            onChange={(e) => setCapital(e.target.value)} 
+          <input
+            type="number"
+            value={capital}
+            onChange={(e) => setCapital(e.target.value)}
           />
         </div>
         <div className="input-group" style={{ flex: 1 }}>
           <label>Lợi nhuận Bạc (VND)</label>
-          <input 
-            type="number" 
-            value={silverProfit} 
-            onChange={(e) => setSilverProfit(e.target.value)} 
+          <input
+            type="number"
+            value={silverProfit}
+            onChange={(e) => setSilverProfit(e.target.value)}
           />
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '1rem' }}>
+      <div style={{ display: 'flex', gap: '16px' }}>
         <div className="input-group" style={{ flex: 1 }}>
-          <label>Lãi suất Ngân hàng (%/năm)</label>
-          <input 
-            type="number" 
-            value={bankRateAnnual} 
-            onChange={(e) => setBankRateAnnual(e.target.value)} 
+          <label>Lãi Ngân hàng (%/năm)</label>
+          <input
+            type="number"
+            value={bankRateAnnual}
+            onChange={(e) => setBankRateAnnual(e.target.value)}
             step="0.1"
           />
         </div>
         <div className="input-group" style={{ flex: 1 }}>
-          <label>Số tháng gửi</label>
-          <input 
-            type="number" 
-            value={months} 
-            onChange={(e) => setMonths(e.target.value)} 
+          <label>Kỳ hạn (Tháng)</label>
+          <input
+            type="number"
+            value={months}
+            onChange={(e) => setMonths(e.target.value)}
           />
         </div>
       </div>
 
-      <button onClick={handleCompare}>So Sánh</button>
+      <button onClick={handleCompare} style={{ marginTop: '16px' }}>Phân Tích So Sánh</button>
 
       {result && (
         <div className="result-box">
-          <h3 style={{ marginBottom: '1rem' }}>{`Sau ${months} tháng:`}</h3>
-          
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-            <span style={{ minWidth: '120px' }}>Lợi nhuận Bạc:</span>
-            <strong style={{ color: 'var(--success-color)', wordBreak: 'break-word', textAlign: 'right', flex: 1 }}>{result.silverProfit.toLocaleString('vi-VN')} VND</strong>
+          <h3 style={{ marginBottom: '16px' }}>Kết quả hiển thị ({months} tháng):</h3>
+
+          <div className="info-row" style={{ paddingTop: 0 }}>
+            <span className="info-key">Lợi nhuận Bạc</span>
+            <span className="info-val" style={{ color: 'var(--gold-light)' }}>
+              {result.silverProfit.toLocaleString('vi-VN')}
+            </span>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-            <span style={{ minWidth: '120px' }}>Lãi Ngân Hàng:</span>
-            <strong style={{ color: '#60a5fa', wordBreak: 'break-word', textAlign: 'right', flex: 1 }}>{Math.round(result.bankProfit).toLocaleString('vi-VN')} VND</strong>
+
+          <div className="info-row">
+            <span className="info-key">Lãi Ngân Hàng</span>
+            <span className="info-val" style={{ color: 'var(--text)' }}>
+              {Math.round(result.bankProfit).toLocaleString('vi-VN')}
+            </span>
           </div>
-          
-          <div style={{ 
-            paddingTop: '1rem', 
-            borderTop: '1px solid var(--glass-border)',
-            color: result.silverProfit > result.bankProfit ? 'var(--success-color)' : '#60a5fa',
-            fontWeight: 600
+
+          <div className="info-row" style={{
+            borderBottom: 'none',
+            paddingBottom: 0,
+            color: result.silverProfit > result.bankProfit ? 'var(--gold)' : 'var(--text)',
+            fontSize: '12px'
           }}>
-            {'=> '} {result.conclusion}
+            <span className="info-key" style={{ color: 'inherit' }}>Kết luận:</span>
+            <span style={{ fontWeight: 500 }}>{result.conclusion.replace('KẾT LUẬN: ', '')}</span>
           </div>
         </div>
       )}

@@ -12,10 +12,12 @@ export default function SpreadRisk() {
   };
 
   return (
-    <div className="glass-card">
-      <h2>⚖️ Tính Chênh Lệch Mua Bán</h2>
-      <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.9rem' }}>
-        Đánh giá mức độ rủi ro dựa trên độ giãn của giá.
+    <div>
+      <div className="section-header" style={{ marginBottom: '16px' }}>
+        <span className="section-title">Đánh giá Rủi Ro Chênh Lệch</span>
+      </div>
+      <p style={{ color: 'var(--muted)', fontSize: '11px', marginBottom: '24px', letterSpacing: '0.04em' }}>
+        Đánh giá mức độ rủi ro dựa trên độ giãn của giá mua bán.
       </p>
 
       <div className="input-group">
@@ -39,24 +41,26 @@ export default function SpreadRisk() {
       <button onClick={handleCalculate}>Đánh Giá Rủi Ro</button>
 
       {result && (
-        <div className="result-box">
+        <div style={{ marginTop: '24px' }}>
           {result.error ? (
-            <div style={{ color: 'var(--danger-color)' }}>{result.error}</div>
+            <div style={{ color: 'var(--down)', fontSize: '12px' }}>{result.error}</div>
           ) : (
-            <>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                <h3>Chênh lệch:</h3>
-                <span className={`badge ${result.status === 'an toan' ? 'safe' : 'risk'}`}>
-                  {result.status}
-                </span>
-              </div>
-              <div className="value" style={{ fontSize: '1.25rem' }}>
-                {result.spreadValue.toLocaleString('vi-VN')} VND
-                <span style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginLeft: '0.5rem' }}>
-                  ({result.spreadPercent.toFixed(2)}%)
-                </span>
-              </div>
-            </>
+             <div className="info-row" style={{ borderBottom: 'none', flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
+               <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                 <span className="info-key">Chênh lệch (Spread):</span>
+                 <span className={`badge ${result.status === 'an toan' ? 'badge-pnj' : 'badge-doji'}`}>
+                    {result.status}
+                 </span>
+               </div>
+               <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'baseline' }}>
+                 <span className="info-val" style={{ color: 'var(--gold-light)', fontSize: '18px' }}>
+                   {result.spreadValue.toLocaleString('vi-VN')} VND
+                 </span>
+                 <span style={{ fontSize: '12px', color: 'var(--muted)' }}>
+                   ({result.spreadPercent.toFixed(2)}%)
+                 </span>
+               </div>
+             </div>
           )}
         </div>
       )}

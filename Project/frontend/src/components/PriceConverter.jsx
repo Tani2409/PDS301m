@@ -12,10 +12,12 @@ export default function PriceConverter() {
   };
 
   return (
-    <div className="glass-card">
-      <h2>💱 Chuyển đổi Giá Bạc</h2>
-      <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.9rem' }}>
-        Tính giá VND/lượng từ giá thế giới (USD/oz).
+    <div>
+      <div className="section-header" style={{ marginBottom: '16px' }}>
+        <span className="section-title">Chuyển đổi USD/oz sang VND/lượng</span>
+      </div>
+      <p style={{ color: 'var(--muted)', fontSize: '11px', marginBottom: '24px', letterSpacing: '0.04em' }}>
+        Công cụ quy đổi giá bạc thế giới sang giá nội địa theo tỷ giá tuỳ chỉnh.
       </p>
       
       <div className="input-group">
@@ -37,12 +39,14 @@ export default function PriceConverter() {
         />
       </div>
 
-      <button onClick={handleConvert}>Tính Toán</button>
+      <button onClick={handleConvert}>Quy đổi giá</button>
 
       {result !== null && (
-        <div className="result-box">
-          <h3>Giá Quy Đổi:</h3>
-          <div className="value">{Math.round(result).toLocaleString('vi-VN')} VND/lượng</div>
+        <div className="info-row" style={{ marginTop: '24px', borderBottom: 'none' }}>
+          <span className="info-key">Giá Bạc Quy Đổi</span>
+          <span className="info-val" style={{ color: 'var(--gold-light)', fontSize: '16px' }}>
+            {Math.round(result).toLocaleString('vi-VN')} VND/lượng
+          </span>
         </div>
       )}
     </div>

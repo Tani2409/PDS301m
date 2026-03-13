@@ -24,11 +24,9 @@ export default function LiveTicker() {
   useEffect(() => {
     if (!isFetched) return;
 
-    // Cập nhật ngẫu nhiên mỗi 1.5 đến 3 giây để giống dữ liệu live thị trường
     const simulateTick = () => {
       setCurrentPrice(prev => {
         setPrevPrice(prev);
-        // Biến động random rất nhỏ (-0.05 đến +0.05)
         const change = (Math.random() * 0.1 - 0.05);
         return parseFloat((prev + change).toFixed(2));
       });
@@ -42,34 +40,33 @@ export default function LiveTicker() {
   }, [isFetched]);
 
   const isUp = currentPrice >= prevPrice;
+  const changeValue = (currentPrice - prevPrice).toFixed(2);
+  const changePercent = ((changeValue / prevPrice) * 100).toFixed(2);
 
   return (
-    <div className="glass-card" style={{ textAlign: 'center', gridColumn: '1 / -1', padding: '2rem' }}>
-      <h2 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', borderBottom: 'none' }}>
-        <span className="live-indicator"></span> 
-        Live Thị Trường Vi Mô (Mô phỏng XAG/USD)
-      </h2>
-      
-      <div 
-        style={{ 
-          fontSize: '4rem', 
-          fontWeight: 700, 
-          color: isUp ? 'var(--success-color)' : 'var(--danger-color)',
-          textShadow: `0 0 30px ${isUp ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
-          transition: 'color 0.3s ease',
-          fontFamily: 'monospace',
-          marginBottom: '0.5rem'
-        }}
-      >
-        ${currentPrice.toFixed(2)}
-        <span style={{ fontSize: '2rem', marginLeft: '1rem', opacity: 0.8 }}>
-          {isUp ? '▲' : '▼'}
-        </span>
+    <div className="metrics-bar">
+      <div className="metric-card">
+        <div className="metric-label">Bạc thế giới (Live)</div>
+        <div className="metric-value gold">${currentPrice.toFixed(2)}</div>
+        <div className={`metric-change ${isUp ? 'up' : 'down'}`}>
+          {isUp ? '▲ +' : '▼ '}{changeValue} ({changePercent}%)
+        </div>
       </div>
-      
-      <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-        Tick-by-tick trading data (Lấy giá gốc từ Backend & tạo biến động vi mô)
-      </p>
+      <div className="metric-card">
+        <div className="metric-label">Bạc 999 (Bạc ta)</div>
+        <div className="metric-value gold">1.200.000</div>
+        <div className="metric-change up">▲ +10.000 (+0.84%)</div>
+      </div>
+      <div className="metric-card">
+        <div className="metric-label">Bạc 925 (Trang sức)</div>
+        <div className="metric-value">1.050.000</div>
+        <div className="metric-change down">▼ -5.000 (-0.47%)</div>
+      </div>
+      <div className="metric-card">
+        <div className="metric-label">Trạng thái thị trường</div>
+        <div className="metric-value" style={{ color: 'var(--up)', fontSize: '18px', marginTop: '4px' }}>Đang Mở Cửa</div>
+        <div className="metric-change" style={{ color: 'var(--muted)' }}>Phiên giao dịch New York</div>
+      </div>
     </div>
   );
 }

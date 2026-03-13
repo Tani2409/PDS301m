@@ -43,5 +43,5 @@ def get_silver_price():
         }), 500
 
 if __name__ == '__main__':
-    print("Khởi động API Server tại cổng 5000...")
+    print("Starting API Server at port 5000...")
     app.run(host='0.0.0.0', port=5000, debug=True)
