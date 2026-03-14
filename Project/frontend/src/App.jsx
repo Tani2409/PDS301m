@@ -4,6 +4,7 @@ import SpreadRisk from './components/SpreadRisk';
 import ProfitBankCompare from './components/ProfitBankCompare';
 import MarketDashboard from './components/MarketDashboard';
 import LiveTicker from './components/LiveTicker';
+import SilverChart from './components/SilverChart';
 import './index.css';
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
           <div className="logo-icon">
             <svg viewBox="0 0 14 14" fill="none">
               <polygon points="7,1 13,5 13,9 7,13 1,9 1,5" fill="#0D0D0D" stroke="#0D0D0D" strokeWidth="0"/>
-              <polygon points="7,1 13,5 13,9 7,13 1,9 1,5" fill="#C9A84C"/>
+              <polygon points="7,1 13,5 13,9 7,13 1,9 1,5" fill="#B0C4DE"/>
             </svg>
           </div>
           <span className="logo-text">SILVER<span>TRACK</span></span>
@@ -44,13 +45,16 @@ function App() {
       </header>
 
       <main>
-        {/* TOP METRICS (LiveTicker sẽ thế vào đây hoặc phần header) */}
+
         <LiveTicker />
 
-        {/* MARKET DASHBOARD TABLE */}
+
         <MarketDashboard />
 
-        {/* BOTTOM GRID FOR FORMS */}
+
+        <SilverChart />
+
+
         <div className="bottom-grid">
           <div className="info-panel" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <PriceConverter />

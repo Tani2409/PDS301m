@@ -118,13 +118,13 @@ export default function ProfitBankCompare() {
           <h3 style={{ marginBottom: '16px' }}>Kết quả ({months} tháng):</h3>
           <div className="info-row" style={{ paddingTop: 0 }}>
             <span className="info-key">Lợi nhuận Bạc</span>
-            <span className="info-val" style={{ color: 'var(--gold-light)' }}>{result.silverProfit.toLocaleString('vi-VN')} VND</span>
+            <span className="info-val" style={{ color: 'var(--accent-light)' }}>{result.silverProfit.toLocaleString('vi-VN')} VND</span>
           </div>
           <div className="info-row">
             <span className="info-key">Lãi Ngân Hàng</span>
             <span className="info-val">{Math.round(result.bankProfit).toLocaleString('vi-VN')} VND</span>
           </div>
-          <div className="info-row" style={{ borderBottom: 'none', color: result.silverProfit > result.bankProfit ? 'var(--gold)' : 'var(--text)' }}>
+          <div className="info-row" style={{ borderBottom: 'none', color: result.silverProfit > result.bankProfit ? 'var(--accent)' : 'var(--text)' }}>
             <span className="info-key" style={{ color: 'inherit' }}>Kết luận:</span>
             <span style={{ fontWeight: 500 }}>{result.conclusion}</span>
           </div>
@@ -141,7 +141,7 @@ export default function ProfitBankCompare() {
           </div>
           <div className="info-row">
             <span className="info-key">Giá bán tối thiểu cần đạt</span>
-            <span className="info-val" style={{ color: 'var(--gold-light)', fontSize: '18px' }}>
+            <span className="info-val" style={{ color: 'var(--accent-light)', fontSize: '18px' }}>
               {beResult.breakEvenPrice.toLocaleString('vi-VN')} đ/chỉ
             </span>
           </div>

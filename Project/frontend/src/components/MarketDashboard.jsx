@@ -12,7 +12,6 @@ export default function MarketDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch dữ liệu từ Python Backend
   useEffect(() => {
     fetch('http://localhost:5000/api/silver-price')
       .then(res => {
@@ -36,11 +35,9 @@ export default function MarketDashboard() {
       });
   }, []);
 
-  // Convert Set to Array cho việc render
   const daysBoth = Array.from(getNgayBienDongHaiChieu());
   const daysAll = Array.from(getTatCaNgayBienDong());
 
-  // Định nghĩa các thương hiệu dựa trên giá LIVE
   const basePrice = liveInfo?.local_price || 1200000;
   
   const brandedSilver = [
@@ -94,7 +91,6 @@ export default function MarketDashboard() {
               );
             })}
 
-            {/* List Data Rendering - World Silver */}
              <tr>
                 <td>
                   <span className="td-name">Bạc thế giới<small>XAG/USD Spot (Live API)</small></span>
@@ -137,7 +133,7 @@ export default function MarketDashboard() {
            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
              <li className="chip">1 Lượng = {CONVERSION_RATES[0]} Oz</li>
              {HISTORICAL_HIGHS.map((h, i) => (
-                <li key={i} className="chip" style={{ borderLeft: '2px solid var(--gold)' }}>
+                <li key={i} className="chip" style={{ borderLeft: '2px solid var(--accent)' }}>
                   Đỉnh giá năm {h[0]}: {h[1]} USD/oz
                 </li>
               ))}

@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 import yfinance as yf
+import pandas as pd
+import os
 
 app = Flask(__name__)
 # Cho phép cross-origin requests từ React frontend
@@ -65,6 +67,38 @@ def get_silver_price():
             "status": "error",
             "message": str(e)
         }), 500
+
+@app.route('/api/silver-history', methods=['GET'])
+def get_silver_history():
+    try:
+        csv_path = "silver_dataset_2023_2025.csv"
+        if not os.path.exists(csv_path):
+            return jsonify({"status": "error", "message": "Dataset not found"}), 404
+            
+        df = pd.read_csv(csv_path)
+        
+        # Lọc dữ liệu, ví dụ lấy mỗi tuần 1 điểm data để tránh biểu đồ quá dày đặc
+        # (Lấy mỗi dòng thứ 5)
+        df = df.iloc[::5, :]
+        
+        history_data = []
+        for index, row in df.iterrows():
+            history_data.append({
+                "date": str(row['Date'])[:10], # YYYY-MM-DD
+                "global_price": round(row['Global_Price_USD_oz'], 2),
+                "vn_price": round(row['VN_Spot_Price_VND_Tael'], 0)
+            })
+            
+        return jsonify({
+            "status": "success",
+            "data": history_data
+        })
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
+
 
 if __name__ == '__main__':
     print("Starting API Server at port 5000...")
