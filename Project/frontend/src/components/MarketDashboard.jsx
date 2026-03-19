@@ -33,26 +33,6 @@ export default function MarketDashboard() {
       .finally(() => {
         setLoading(false);
       });
-      
-    // Fetch live silver price
-    fetch('http://localhost:5000/api/live-silver-price')
-      .then(res => {
-        if (!res.ok) throw new Error('Lỗi fetch live price');
-        return res.json();
-      })
-      .then(data => {
-        if (data.status === 'success') {
-          setLiveSilverPrice(data.price);
-        } else {
-          throw new Error(data.message);
-        }
-      })
-      .catch(err => {
-        setLiveError(err.message);
-      })
-      .finally(() => {
-        setLiveLoading(false);
-      });
   }, []);
 
   const daysBoth = Array.from(getNgayBienDongHaiChieu());
@@ -121,7 +101,7 @@ export default function MarketDashboard() {
                   {loading ? 'Đang tải...' : (liveInfo ? `${liveInfo.spot} USD` : 'N/A')}
                 </td>
                 <td>
-                  {liveError ? (
+                  {error ? (
                     <span style={{ color: 'var(--down)', fontSize: '11px' }}>Lỗi Backend</span>
                   ) : (
                     <span className="change-down">▼ -0.05</span>

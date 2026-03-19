@@ -1,39 +1,28 @@
-from flask import Blueprint, jsonify
-from app.services.silver_service import get_7_days_silver_price
-from app.services.scraper_service import scrape_silver_price
+from flask import jsonify
+from .services.silver_service import SilverService
 
-api_bp = Blueprint('api', __name__)
+def register_routes(app):
+    @app.route('/api/silver-price', methods=['GET'])
+    def get_silver_price():
+        """Lấy giá 7 ngày qua và giá Live."""
+        try:
+            weekly = SilverService.get_weekly_price()
+            live = SilverService.get_live_data()
+            return jsonify({
+                "status": "success",
+                "data": weekly,
+                "live": live
+            })
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
 
-@api_bp.route('/api/silver-price', methods=['GET'])
-def get_silver_price():
-    try:
-        data = get_7_days_silver_price()
-        return jsonify({
-            "status": "success",
-            "data": data
-        })
-    except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e)
-        }), 500
-
-@api_bp.route('/api/live-silver-price', methods=['GET'])
-def get_live_silver_price():
-    try:
-        live_price = scrape_silver_price()
-        if live_price is not None:
-             return jsonify({
-                 "status": "success",
-                 "price": live_price
-             })
-        else:
-             return jsonify({
-                 "status": "error",
-                 "message": "Không thể lấy giá live"
-             }), 500
-    except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e)
-        }), 500
+    @app.route('/api/silver-history', methods=['GET'])
+    def get_silver_history():
+        """Lấy dữ liệu CSV dài hạn cho biểu đồ."""
+        try:
+            data = SilverService.get_historical_data()
+            if data is None:
+                return jsonify({"status": "error", "message": "CSV data not found"}), 404
+            return jsonify({"status": "success", "data": data})
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500

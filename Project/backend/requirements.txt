@@ -1,5 +1,9 @@
-Flask==3.0.0
-Flask-Cors==4.0.0
-yfinance==0.2.33
-requests==2.31.0
-beautifulsoup4==4.12.2
+flask
+flask-cors
+yfinance
+pandas
+numpy
+matplotlib
+seaborn
+requests
+beautifulsoup4
