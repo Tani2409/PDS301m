@@ -1,0 +1,6 @@
+# Ignore EVERYTHING except Project folder and Start script
+/*
+!/Project/
+!/README.md
+!/START_PDS.py
+!/.gitignore
