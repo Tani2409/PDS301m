@@ -1,3 +1,6 @@
+import os
+import pandas as pd
+
 print("--- 1. LIST: LƯU LỊCH SỬ GIÁ & TÌM MAX/MIN ---")
 # List (Danh sách) có thể thay đổi, thêm/bớt phần tử, giữ nguyên thứ tự.
 # Lưu lịch sử giá bạc thế giới (USD/oz) trong 7 ngày qua
@@ -60,16 +63,31 @@ print("--- 4. TUPLE: LƯU TỶ LỆ CHUYỂN ĐỔI & MỐC GIÁ CỐ ĐỊNH --
 # Dùng để bảo vệ các hằng số không bị vô tình sửa sai trong quá trình code.
 
 # Lưu tỷ lệ quy đổi chuẩn: (1 lượng = 1.20565 oz, 1 oz = 31.1034768 gram)
-CONVERSION_RATES = (1.20565, 31.1034768)
+CONVERSION_RATES = (1.2057, 37.5)
+
+# Đọc dữ liệu từ file CSV để tìm đỉnh giá của giai đoạn 2023-2025
+csv_path = os.path.join(os.path.dirname(__file__), '..', 'silver_dataset_2023_2025.csv')
+if os.path.exists(csv_path):
+    df = pd.read_csv(csv_path)
+    # Lấy ra dòng có giá trị Global_Price_USD_oz cao nhất
+    max_row = df.loc[df['Global_Price_USD_oz'].idxmax()]
+    nam_dinh_23_25 = int(str(max_row['Date'])[:4]) # Cắt lấy 4 số đầu làm năm
+    gia_dinh_23_25 = round(float(max_row['Global_Price_USD_oz']), 2)
+else:
+    nam_dinh_23_25, gia_dinh_23_25 = 2024, 34.0  # Fallback nếu không có file
 
 # Lưu các mốc giá lịch sử quan trọng của bạc (Năm, Giá USD/oz)
+# Tuple vẫn đảm bảo tính BẤT BIẾN sau khi được khởi tạo, dù dữ liệu nguồn lấy từ Data.
 HISTORICAL_HIGHS = (
     (1980, 49.45),
-    (2011, 49.51)
+    (2011, 49.51),
+    (nam_dinh_23_25, gia_dinh_23_25) # Nạp thêm kỷ lục từ file Data
 )
+
 
 print(f"Tỷ lệ quy đổi chuẩn: 1 Lượng = {CONVERSION_RATES[0]} Ounce")
 print(f"Đỉnh lịch sử của Bạc là {HISTORICAL_HIGHS[1][1]} USD/oz lập vào năm {HISTORICAL_HIGHS[1][0]}")
+print(f"Đỉnh cục bộ (2023-2025) từ DataSet là {HISTORICAL_HIGHS[2][1]} USD/oz")
 
 # Thử thay đổi Tuple sẽ gây lỗi (Bạn có thể bỏ dấu # ở dòng dưới để xem lỗi)
 # CONVERSION_RATES[0] = 1.5  # Lỗi: 'tuple' object does not support item assignment
