@@ -28,7 +28,7 @@ function App() {
           <div className="logo-icon">
             <svg viewBox="0 0 14 14" fill="none">
               <polygon points="7,1 13,5 13,9 7,13 1,9 1,5" fill="#0D0D0D" stroke="#0D0D0D" strokeWidth="0"/>
-              <polygon points="7,1 13,5 13,9 7,13 1,9 1,5" fill="#C9A84C"/>
+              <polygon points="7,1 13,5 13,9 7,13 1,9 1,5" fill="#D1D5DB"/>
             </svg>
           </div>
           <span className="logo-text">SILVER<span>TRACK</span></span>

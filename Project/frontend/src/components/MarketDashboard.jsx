@@ -12,6 +12,10 @@ export default function MarketDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [liveSilverPrice, setLiveSilverPrice] = useState(null);
+  const [liveLoading, setLiveLoading] = useState(true);
+  const [liveError, setLiveError] = useState(null);
+
   // Fetch dữ liệu từ Python Backend
   useEffect(() => {
     fetch('http://localhost:5000/api/silver-price')
@@ -32,6 +36,26 @@ export default function MarketDashboard() {
       })
       .finally(() => {
         setLoading(false);
+      });
+      
+    // Fetch live silver price
+    fetch('http://localhost:5000/api/live-silver-price')
+      .then(res => {
+        if (!res.ok) throw new Error('Lỗi fetch live price');
+        return res.json();
+      })
+      .then(data => {
+        if (data.status === 'success') {
+          setLiveSilverPrice(data.price);
+        } else {
+          throw new Error(data.message);
+        }
+      })
+      .catch(err => {
+        setLiveError(err.message);
+      })
+      .finally(() => {
+        setLiveLoading(false);
       });
   }, []);
 
@@ -93,13 +117,13 @@ export default function MarketDashboard() {
                 <td><span className="badge badge-world">INTL</span></td>
                 <td className="price-buy">—</td>
                 <td className="price-sell">
-                  {loading ? 'Đang tải...' : (livePrices.length > 0 ? `${livePrices[livePrices.length - 1].price} USD` : 'N/A')}
+                  {liveLoading ? 'Đang tải...' : (liveSilverPrice ? `${liveSilverPrice} USD` : 'N/A')}
                 </td>
                 <td>
-                  {error ? (
+                  {liveError ? (
                     <span style={{ color: 'var(--down)', fontSize: '11px' }}>Lỗi Backend</span>
                   ) : (
-                    <span className="change-down">▼ -0.15</span>
+                    <span className="change-up" style={{color: 'var(--text)'}}>—</span>
                   )}
                 </td>
                 <td style={{ color: 'var(--muted)', fontSize: '11px' }}>Live</td>

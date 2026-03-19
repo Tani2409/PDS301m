@@ -13,6 +13,7 @@
   --gold: #C9A84C;
   --gold-light: #E8C87A;
   --gold-dim: rgba(201,168,76,0.15);
+  --silver: #D1D5DB;
   --up: #4CAF6E;
   --down: #E05252;
   --font-display: 'Syne', sans-serif;
@@ -50,7 +51,7 @@ header {
 .logo-icon {
   width: 24px;
   height: 24px;
-  background: var(--gold);
+  background: var(--silver);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,7 +66,7 @@ header {
   color: var(--text);
 }
 
-.logo-text span { color: var(--gold); }
+.logo-text span { color: var(--silver); }
 
 .header-right {
   display: flex;
