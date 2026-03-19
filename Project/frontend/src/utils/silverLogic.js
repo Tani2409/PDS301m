@@ -79,3 +79,18 @@ export function compareInvestmentVsBank(capital, silverProfit, bankRateAnnual, m
     conclusion
   };
 }
+
+export function calculateBreakEven(purchasePrice, bankRateAnnual, months) {
+  // Lãi suất mục tiêu tương ứng với ngân hàng
+  const targetReturnPercent = (bankRateAnnual / 100 / 12) * months;
+  // Giá bán cần thiết = Giá mua * (1 + tỷ lệ lãi ngân hàng)
+  // Lưu ý: Đây là giá bán ra bạn nhận được từ cửa hàng (Bid Price)
+  const breakEvenPrice = purchasePrice * (1 + targetReturnPercent);
+  const requiredGain = breakEvenPrice - purchasePrice;
+
+  return {
+    breakEvenPrice: Math.round(breakEvenPrice),
+    requiredGain: Math.round(requiredGain),
+    targetReturnPercent: (targetReturnPercent * 100).toFixed(2)
+  };
+}

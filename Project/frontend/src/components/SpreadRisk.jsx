@@ -53,7 +53,7 @@ export default function SpreadRisk() {
                  </span>
                </div>
                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'baseline' }}>
-                 <span className="info-val" style={{ color: 'var(--gold-light)', fontSize: '18px' }}>
+                 <span className="info-val" style={{ color: 'var(--accent-light)', fontSize: '18px' }}>
                    {result.spreadValue.toLocaleString('vi-VN')} VND
                  </span>
                  <span style={{ fontSize: '12px', color: 'var(--muted)' }}>

@@ -10,10 +10,9 @@
   --border-hover: rgba(255,255,255,0.16);
   --text: #F0EDE6;
   --muted: #888880;
-  --gold: #C9A84C;
-  --gold-light: #E8C87A;
-  --gold-dim: rgba(201,168,76,0.15);
-  --silver: #D1D5DB;
+  --accent: #B0C4DE;
+  --accent-light: #F0F8FF;
+  --accent-dim: rgba(176, 196, 222, 0.15);
   --up: #4CAF6E;
   --down: #E05252;
   --font-display: 'Syne', sans-serif;
@@ -51,7 +50,7 @@ header {
 .logo-icon {
   width: 24px;
   height: 24px;
-  background: var(--silver);
+  background: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +65,7 @@ header {
   color: var(--text);
 }
 
-.logo-text span { color: var(--silver); }
+.logo-text span { color: var(--accent); }
 
 .header-right {
   display: flex;
@@ -109,8 +108,8 @@ header {
 }
 
 .btn-refresh:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* MAIN LAYOUT */
@@ -142,7 +141,7 @@ main {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: var(--gold);
+  background: var(--accent);
   opacity: 0;
   transition: opacity 0.2s;
 }
@@ -167,7 +166,7 @@ main {
   margin-bottom: 6px;
 }
 
-.metric-value.gold { color: var(--gold-light); }
+.metric-value.gold { color: var(--accent-light); }
 
 .metric-change {
   font-family: var(--font-mono);
@@ -199,8 +198,8 @@ main {
 .section-tag {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--gold);
-  background: var(--gold-dim);
+  color: var(--accent);
+  background: var(--accent-dim);
   padding: 3px 8px;
   letter-spacing: 0.05em;
 }
@@ -271,7 +270,7 @@ td:not(:first-child) { text-align: right; }
   margin-top: 3px;
 }
 
-.price-buy { color: var(--gold-light); }
+.price-buy { color: var(--accent-light); }
 .price-sell { color: var(--text); }
 
 .change-up { color: var(--up); display: inline-flex; align-items: center; gap: 3px; }
@@ -287,7 +286,7 @@ td:not(:first-child) { text-align: right; }
   text-transform: uppercase;
 }
 
-.badge-sjc { background: rgba(201,168,76,0.15); color: var(--gold); }
+.badge-sjc { background: rgba(176,196,222,0.15); color: var(--accent); }
 .badge-pnj { background: rgba(76,175,110,0.12); color: var(--up); }
 .badge-doji { background: rgba(224,82,82,0.12); color: var(--down); }
 .badge-world { background: rgba(136,136,128,0.15); color: var(--muted); }
@@ -323,14 +322,14 @@ td:not(:first-child) { text-align: right; }
 
 .bar {
   flex: 1;
-  background: var(--gold-dim);
-  border-top: 1px solid var(--gold);
+  background: var(--accent-dim);
+  border-top: 1px solid var(--accent);
   transition: background 0.2s;
   cursor: pointer;
   position: relative;
 }
 
-.bar:hover { background: rgba(201,168,76,0.28); }
+.bar:hover { background: rgba(176,196,222,0.28); }
 
 .bar-label {
   position: absolute;
@@ -384,13 +383,13 @@ input {
 
 input:focus {
   outline: none;
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 
 button {
-  background: var(--gold-dim);
-  color: var(--gold);
-  border: 1px solid var(--gold);
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid var(--accent);
   padding: 12px 24px;
   font-family: var(--font-display);
   font-size: 12px;
@@ -404,7 +403,7 @@ button {
 }
 
 button:hover {
-  background: var(--gold);
+  background: var(--accent);
   color: var(--bg);
 }
 
@@ -412,7 +411,7 @@ button:hover {
   margin-top: 24px;
   padding: 16px;
   background: var(--surface2);
-  border-left: 2px solid var(--gold);
+  border-left: 2px solid var(--accent);
 }
 
 .result-box h3 {
@@ -428,7 +427,7 @@ button:hover {
   font-family: var(--font-mono);
   font-size: 18px;
   font-weight: 500;
-  color: var(--gold-light);
+  color: var(--accent-light);
 }
 
 .chips-container {

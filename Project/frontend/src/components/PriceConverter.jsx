@@ -44,7 +44,7 @@ export default function PriceConverter() {
       {result !== null && (
         <div className="info-row" style={{ marginTop: '24px', borderBottom: 'none' }}>
           <span className="info-key">Giá Bạc Quy Đổi</span>
-          <span className="info-val" style={{ color: 'var(--gold-light)', fontSize: '16px' }}>
+          <span className="info-val" style={{ color: 'var(--accent-light)', fontSize: '16px' }}>
             {Math.round(result).toLocaleString('vi-VN')} VND/lượng
           </span>
         </div>
