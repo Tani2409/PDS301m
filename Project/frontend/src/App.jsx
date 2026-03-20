@@ -5,17 +5,17 @@ import ProfitBankCompare from './components/ProfitBankCompare';
 import MarketDashboard from './components/MarketDashboard';
 import LiveTicker from './components/LiveTicker';
 import SilverChart from './components/SilverChart';
+import SilverHistogram from './components/SilverHistogram';
+import SilverCalculator from './components/SilverCalculator';
 import './index.css';
 
 function App() {
+  const [activeTab, setActiveTab] = useState('live'); // 'live', 'charts', 'functions'
   const [time, setTime] = useState('');
-  const [date, setDate] = useState('');
   
   useEffect(() => {
     const tick = () => {
-      const now = new Date();
-      setTime(now.toLocaleTimeString('vi-VN', { hour12: false }));
-      setDate(now.toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+      setTime(new Date().toLocaleTimeString('vi-VN', { hour12: false }));
     };
     tick();
     const interval = setInterval(tick, 1000);
@@ -23,54 +23,85 @@ function App() {
   }, []);
 
   return (
-    <>
-      <header>
-        <div className="logo">
+    <div className="app-container">
+      {/* SIDEBAR MENU */}
+      <aside className="sidebar">
+        <div className="sidebar-logo">
           <div className="logo-icon">
-            <svg viewBox="0 0 14 14" fill="none">
-              <polygon points="7,1 13,5 13,9 7,13 1,9 1,5" fill="#0D0D0D" stroke="#0D0D0D" strokeWidth="0"/>
+            <svg viewBox="0 0 14 14" fill="none" width="24" height="24">
               <polygon points="7,1 13,5 13,9 7,13 1,9 1,5" fill="#B0C4DE"/>
             </svg>
           </div>
-          <span className="logo-text">SILVER<span>TRACK</span></span>
+          <span className="logo-text" style={{ fontSize: '18px' }}>SILVER<span>TRACK</span></span>
         </div>
 
-        <div className="header-right">
-          <span className="last-update">
-            <span className="pulse-dot"></span>
-            Cập nhật: <span id="update-time">{time}</span>
-          </span>
-          <button className="btn-refresh" onClick={() => window.location.reload()}>↻ Làm mới</button>
+        <nav className="nav-menu">
+          <div 
+            className={`nav-item ${activeTab === 'live' ? 'active' : ''}`}
+            onClick={() => setActiveTab('live')}
+          >
+            <span>⚡</span> Live Tracking
+          </div>
+          <div 
+            className={`nav-item ${activeTab === 'charts' ? 'active' : ''}`}
+            onClick={() => setActiveTab('charts')}
+          >
+            <span>📈</span> Charts
+          </div>
+          <div 
+            className={`nav-item ${activeTab === 'functions' ? 'active' : ''}`}
+            onClick={() => setActiveTab('functions')}
+          >
+            <span>🛠️</span> Functions
+          </div>
+        </nav>
+
+        <div style={{ marginTop: 'auto', padding: '24px', fontSize: '12px', color: 'var(--muted)' }}>
+          Cập nhật: {time}
         </div>
-      </header>
+      </aside>
 
-      <main>
-
+      {/* MAIN CONTENT AREA */}
+      <main className="main-content">
         <LiveTicker />
 
-
-        <MarketDashboard />
-
-
-        <SilverChart />
-
-
-        <div className="bottom-grid">
-          <div className="info-panel" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <PriceConverter />
-            <SpreadRisk />
+        {activeTab === 'live' && (
+          <div className="fade-in">
+            <MarketDashboard />
+            <div style={{ marginTop: '24px' }}>
+              <PriceConverter />
+            </div>
           </div>
-          <div className="info-panel">
-            <ProfitBankCompare />
+        )}
+
+        {activeTab === 'charts' && (
+          <div className="fade-in">
+            <SilverChart />
+            <SilverHistogram />
           </div>
-        </div>
+        )}
+
+        {activeTab === 'functions' && (
+          <div className="fade-in">
+            <SilverCalculator />
+            <div className="bottom-grid" style={{ marginTop: '24px' }}>
+              <div className="info-panel">
+                <SpreadRisk />
+              </div>
+              <div className="info-panel">
+                <ProfitBankCompare />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <footer style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid var(--border)' }}>
+          <p style={{ color: 'var(--muted)', fontSize: '12px' }}>
+            SILVERTRACK — Hệ thống phân tích giá bạc thời gian thực (Modular structure v2.0)
+          </p>
+        </footer>
       </main>
-
-      <footer>
-        <p>SILVERTRACK — Bảng giá bạc thời gian thực · Dữ liệu mang tính tham khảo</p>
-        <p id="footer-date">{date}</p>
-      </footer>
-    </>
+    </div>
   );
 }
 
