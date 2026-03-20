@@ -8,11 +8,15 @@ class SilverService:
     def get_weekly_price():
         """Lấy giá bạc 7 ngày qua từ Yahoo Finance."""
         ticker = "SI=F"
-        data = yf.Ticker(ticker).history(period="7d")
-        return [
-            {"date": d.strftime("%d/%m"), "price": round(r['Close'], 2)}
-            for d, r in data.iterrows()
-        ]
+        try:
+            data = yf.Ticker(ticker).history(period="7d")
+            return [
+                {"date": d.strftime("%d/%m"), "price": round(r['Close'], 2)}
+                for d, r in data.iterrows()
+            ]
+        except Exception as e:
+            print(f"Error fetching weekly price: {e}")
+            return []
 
     @staticmethod
     def get_historical_data():
@@ -40,13 +44,25 @@ class SilverService:
 
     @staticmethod
     def get_live_data():
-        """Lấy giá Live (Spot & USD/VND)."""
-        tickers = yf.Tickers('XAGUSD=X USDVND=X')
+        """Lấy giá Live (Spot & USD/VND). Sử dụng logic history().iloc[-1]"""
         try:
-            spot = tickers.tickers['XAGUSD=X'].fast_info['last_price']
-            usdvnd = tickers.tickers['USDVND=X'].fast_info['last_price']
-        except:
-            spot, usdvnd = 31.0, 25450.0 # Fallback
+            # Lấy giá spot từ SI=F (Silver Futures)
+            stock_spot = yf.Ticker('SI=F')
+            spot_hist = stock_spot.history(period="1d")
+            if spot_hist.empty:
+                raise ValueError("SI=F returned empty data")
+            spot = float(spot_hist["Close"].iloc[-1])
+
+            # Lấy tỷ giá USD/VND
+            stock_vnd = yf.Ticker('USDVND=X')
+            vnd_hist = stock_vnd.history(period="1d")
+            if vnd_hist.empty:
+                raise ValueError("USDVND=X returned empty data")
+            usdvnd = float(vnd_hist["Close"].iloc[-1])
+        except Exception as e:
+            print(f"Error fetching live data: {e}")
+            spot, usdvnd = 72.5, 26200.0 # Fallback updated to current market approx
+
             
         local_est_chi = round(spot * 1.20565 * usdvnd / 10, 0)
         return {

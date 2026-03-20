@@ -66,7 +66,7 @@ export default function ProfitBankCompare() {
           <p style={{ color: 'var(--muted)', fontSize: '11px', marginBottom: '16px' }}>
             Đánh giá hiệu quả dựa trên lợi nhuận bạn đã thu được.
           </p>
-          <div style={{ display: 'flex', gap: '16px' }}>
+          <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
             <div className="input-group" style={{ flex: 1 }}>
               <label>Vốn đầu tư (VND)</label>
               <input type="number" value={capital} onChange={(e) => setCapital(e.target.value)} />
@@ -80,15 +80,15 @@ export default function ProfitBankCompare() {
       ) : (
         <>
           <p style={{ color: 'var(--muted)', fontSize: '11px', marginBottom: '16px' }}>
-            Tính toán xem bạn cần bán giá bao nhiêu để lời hơn gửi ngân hàng.
+            Tính toán xem bạn cần bán giá bao nhiêu để lời hơn gửi tiết kiệm.
           </p>
           <div className="input-group">
-            <label>Giá lúc bạn mua (VND/chỉ)</label>
+            <label>Giá lúc bạn mua (VND/lượng, VND/chỉ,...)</label>
             <input 
               type="number" 
               value={purchasePrice} 
               onChange={(e) => setPurchasePrice(e.target.value)} 
-              placeholder="Ví dụ: 1.200.000"
+              placeholder="Ví dụ: 1200000"
             />
           </div>
         </>
@@ -136,7 +136,7 @@ export default function ProfitBankCompare() {
         <div className="result-box">
           <h3 style={{ marginBottom: '16px' }}>Mục tiêu giá bán ({months} tháng):</h3>
           <div className="info-row" style={{ paddingTop: 0 }}>
-            <span className="info-key">Lãi suất Bank tương ứng</span>
+            <span className="info-key">Lãi Bank tương ứng</span>
             <span className="info-val" style={{ color: 'var(--up)' }}>+{beResult.targetReturnPercent}%</span>
           </div>
           <div className="info-row">
@@ -146,7 +146,7 @@ export default function ProfitBankCompare() {
             </span>
           </div>
           <p style={{ marginTop: '12px', fontSize: '11px', color: 'var(--muted)', fontStyle: 'italic' }}>
-            *Để lời hơn gửi tiết kiệm, bạn cần bán được giá cao hơn mức này (đã tính bù đắp lãi suất ngân hàng).
+            *Để lời hơn gửi tiết kiệm, bạn cần đợi giá cửa hàng thu mua cao hơn mức này.
           </p>
         </div>
       )}
