@@ -7,13 +7,6 @@ class SilverService:
     @staticmethod
     def get_weekly_price():
         ticker = "SI=F"
-<<<<<<< Updated upstream
-        data = yf.Ticker(ticker).history(period="7d")
-        return [
-            {"date": d.strftime("%d/%m"), "price": round(r['Close'], 2)}
-            for d, r in data.iterrows()
-        ]
-=======
         try:
             data = yf.Ticker(ticker).history(period="7d")
             return [
@@ -22,7 +15,6 @@ class SilverService:
             ]
         except Exception:
             return []
->>>>>>> Stashed changes
 
     @staticmethod
     def get_historical_data():
@@ -40,15 +32,6 @@ class SilverService:
 
     @staticmethod
     def get_live_data():
-<<<<<<< Updated upstream
-        """Lấy giá Live (Spot & USD/VND)."""
-        tickers = yf.Tickers('XAGUSD=X USDVND=X')
-        try:
-            spot = tickers.tickers['XAGUSD=X'].fast_info['last_price']
-            usdvnd = tickers.tickers['USDVND=X'].fast_info['last_price']
-        except:
-            spot, usdvnd = 31.0, 25450.0 # Fallback
-=======
         try:
             stock_spot = yf.Ticker('SI=F')
             spot = float(stock_spot.history(period="1d")["Close"].iloc[-1])
@@ -56,7 +39,6 @@ class SilverService:
             usdvnd = float(stock_vnd.history(period="1d")["Close"].iloc[-1])
         except Exception:
             spot, usdvnd = 32.5, 25400.0
->>>>>>> Stashed changes
             
         local_est_chi = round(spot * 1.20565 * usdvnd / 10, 0)
         return {"spot": round(spot, 2), "usd_vnd": round(usdvnd, 0), "local_price": local_est_chi}

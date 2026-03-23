@@ -1,22 +1,10 @@
-<<<<<<< Updated upstream:Project/frontend/src/components/SpreadRisk.jsx
-import { useState } from 'react';
-import { calculateSpread } from '../utils/silverLogic';
-=======
 import { useState, useEffect } from 'react';
->>>>>>> Stashed changes:Project/frontend/src/components/Calculators/SpreadRisk.jsx
 
 export default function SpreadRisk() {
   const [bidPrice, setBidPrice] = useState(1180000); // Giá mua vào
   const [askPrice, setAskPrice] = useState(1220000); // Giá bán ra
   const [result, setResult] = useState(null);
 
-<<<<<<< Updated upstream:Project/frontend/src/components/SpreadRisk.jsx
-  const handleCalculate = () => {
-    const res = calculateSpread(Number(bidPrice), Number(askPrice));
-    setResult(res);
-  };
-
-=======
   // States cho Danh sách Giao dịch (Bài 3)
   const [transactions, setTransactions] = useState([
     { buy_price: 11800000, sell_price: 12200000, quantity: 5 },
@@ -25,7 +13,7 @@ export default function SpreadRisk() {
 
   const [computedStats, setComputedStats] = useState({ totalProfit: 0, roiPercent: 0, total_capital: 0 });
 
-  const handleCalculateSpread = async () => {
+  const handleCalculate = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/calculate/risk', {
         method: 'POST',
@@ -77,7 +65,6 @@ export default function SpreadRisk() {
     setTransactions(transactions.filter((_, i) => i !== index));
   };
 
->>>>>>> Stashed changes:Project/frontend/src/components/Calculators/SpreadRisk.jsx
   return (
     <div>
       <div className="section-header" style={{ marginBottom: '16px' }}>
@@ -129,12 +116,10 @@ export default function SpreadRisk() {
                </div>
              </div>
           )}
-<<<<<<< Updated upstream:Project/frontend/src/components/SpreadRisk.jsx
         </div>
-=======
-        </>
-      ) : (
-        <>
+      )}
+
+      <div style={{ marginTop: '32px' }}>
           <p style={{ color: 'var(--muted)', fontSize: '11px', marginBottom: '16px', letterSpacing: '0.04em' }}>
             Tổng hợp lợi nhuận từ các lần mua bán bạc của bạn (Bài toán 3).
           </p>
@@ -176,9 +161,7 @@ export default function SpreadRisk() {
               </div>
             </div>
           </div>
-        </>
->>>>>>> Stashed changes:Project/frontend/src/components/Calculators/SpreadRisk.jsx
-      )}
+      </div>
     </div>
   );
 }
