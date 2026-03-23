@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { compareInvestmentVsBank, calculateBreakEven } from '../utils/silverLogic';
 
 export default function ProfitBankCompare() {
   const [activeTab, setActiveTab] = useState('compare'); // 'compare' hoặc 'breakeven'
@@ -18,23 +17,45 @@ export default function ProfitBankCompare() {
   const [result, setResult] = useState(null);
   const [beResult, setBeResult] = useState(null);
 
-  const handleCompare = () => {
-    const res = compareInvestmentVsBank(
-      Number(capital),
-      Number(silverProfit),
-      Number(bankRateAnnual),
-      Number(months)
-    );
-    setResult(res);
+  const handleCompare = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/calculate/investment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          capital: Number(capital),
+          rate_annual: Number(bankRateAnnual),
+          months: Number(months),
+          silver_profit: Number(silverProfit)
+        })
+      });
+      const res = await response.json();
+      if (res.status === 'success') {
+        setResult(res.result);
+      }
+    } catch (err) {
+      console.error("Lỗi so sánh đầu tư từ BE:", err);
+    }
   };
 
-  const handleCalculateBE = () => {
-    const res = calculateBreakEven(
-      Number(purchasePrice),
-      Number(bankRateAnnual),
-      Number(months)
-    );
-    setBeResult(res);
+  const handleCalculateBE = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/calculate/breakeven', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          purchase_price: Number(purchasePrice),
+          bank_rate: Number(bankRateAnnual),
+          months: Number(months)
+        })
+      });
+      const res = await response.json();
+      if (res.status === 'success') {
+        setBeResult(res.result);
+      }
+    } catch (err) {
+      console.error("Lỗi tính điểm hòa vốn từ BE:", err);
+    }
   };
 
   return (

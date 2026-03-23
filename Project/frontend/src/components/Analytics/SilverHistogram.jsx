@@ -15,33 +15,14 @@ export default function SilverHistogram() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/silver-history')
+    fetch('http://localhost:5000/api/market/histogram')
       .then(res => res.json())
       .then(result => {
         if (result.status === 'success') {
-          // XỬ LÝ DỮ LIỆU SANG DẠNG BINS (HISTOGRAM)
-          const prices = result.data.map(d => d.vn_price);
-          const min = Math.min(...prices);
-          const max = Math.max(...prices);
-          const step = (max - min) / 10; // Chia làm 10 khoảng giá
-          
-          const bins = Array.from({ length: 10 }, (_, i) => {
-            const low = (min + i * step) / 1000000;
-            const high = (min + (i + 1) * step) / 1000000;
-            return {
-              range: `${low.toFixed(2)}M - ${high.toFixed(2)}M`,
-              count: 0
-            };
-          });
-
-          prices.forEach(p => {
-            const binIdx = Math.min(Math.floor((p - min) / step), 9);
-            bins[binIdx].count++;
-          });
-
-          setData(bins);
+          setData(result.data);
         }
       })
+      .catch(err => console.error("Lỗi fetch histogram:", err))
       .finally(() => setLoading(false));
   }, []);
 

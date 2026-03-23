@@ -30,15 +30,34 @@ export default function SilverCalculator() {
     return () => clearInterval(interval);
   }, []);
 
-  // Tính toán kết quả
+  // Tính toán kết quả thông qua API Backend
   useEffect(() => {
-    let baseChi = totalAmount;
-    if (unit === 'tael') baseChi = totalAmount * 10;
-    if (unit === 'oz') baseChi = totalAmount * 0.8294; // 1 oz ~ 0.8294 lượng ~ 8.294 chi
+    const calculateOnBackend = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/calculate/conversion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: totalAmount,
+            unit: unit,
+            purity: purity,
+            live_price: livePrice,
+            usd_vnd: 25450 
+          })
+        });
+        const res = await response.json();
+        if (res.status === 'success') {
+          setResultVND(res.result.vnd);
+          setResultUSD(res.result.usd);
+        }
+      } catch (err) {
+        console.error("Lỗi tính toán quy đổi từ BE:", err);
+      }
+    };
 
-    const finalVND = baseChi * livePrice * purity;
-    setResultVND(finalVND);
-    setResultUSD(finalVND / 25450); // Ước tính tỷ giá
+    if (livePrice > 0) {
+      calculateOnBackend();
+    }
   }, [totalAmount, unit, purity, livePrice]);
 
   return (

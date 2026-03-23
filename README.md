@@ -1,45 +1,46 @@
-# Phân tích và Dự báo Xu hướng Giá bạc Việt Nam (Phase 1-3)
-**Domain:** Finance (Tài chính)  
-**Thời gian phân tích:** 01/2023 - 01/2025 (2 năm)
+# ĐỒ ÁN CUỐI KỲ: PHÂN TÍCH VÀ DỰ BÁO XU HƯỚNG GIÁ BẠC VIỆT NAM (2023-2025)
 
-Dự án này là Đồ án môn học phân tích dữ liệu, được chia làm 3 Phase từ cơ bản đến nâng cao (Sử dụng Python, Pandas, Web Scraping, REST API và ReactJS).
+**Học phần:** PDS301m - Python for Applied Data Science  
+**Nhóm thực hiện:** Nguyễn Đình Tuấn Anh (SE180244) & Trịnh Đông Vũ
 
-## 🚀 Tính Năng Chính
-### Phase 1 & 2: Core Variables & Data Structures (Python Basics)
-*   Quy đổi tự động USD/oz sang VND/lượng.
-*   Tính toán điểm hòa vốn và kiểm định rủi ro tỷ giá (Spread Risk).
-*   Sử dụng vòng lặp (List) vẽ biểu đồ các thương hiệu nội địa, Tuple đóng hằng số và Set để tìm khoảng giao/hợp các ngày biến động giá mạnh.
+---
 
-### Phase 3: Data Analysis & Visualization (Pandas + Jupyter)
-*   **Web Scraping & API:** Thu thập tỷ giá (`USDVND=X`) và giá bạc T.Giới (`SI=F`) qua thư viện `yfinance`, cào Premium vật chất bằng `BeautifulSoup`.
-*   **Data Processing:** Làm sạch và sinh ra tập dữ liệu 502 ngày giao dịch trong tệp `silver_dataset_2023_2025.csv`.
-*   **Jupyter Notebook:** Toàn bộ phân tích biến động lợi suất (Daily Returns), Mùa vụ (Seasonality) được báo cáo tường minh trong file `backend/Phase3_Analysis.ipynb`.
+## 🚀 TỔNG QUAN DỰ ÁN
+Dự án là một hệ thống phân tích tài chính toàn diện, kết hợp giữa sức mạnh xử lý dữ liệu của **Python (Backend)** và giao diện tương tác hiện đại của **React (Frontend)**. Dự án bám sát 3 giai đoạn kiến thức của môn học:
+1.  **Phase 1-2:** Xây dựng logic tài chính nâng cao dựa trên List, Dict, Set, Tuple.
+2.  **Phase 3:** Khai phá dữ liệu lớn với Pandas, NumPy và trực quan hóa Histogram.
 
-### Mở rộng (Bonus Frontend React)
-*   Giao diện người dùng chuyên nghiệp (Dark/Silver Mode) với React Vite.
-*   Cung cấp tính năng so sánh Lãi Suất Tiết Kiệm Ngân Hàng vs Đầu Tư Giá Bạc.
-*   Trực quan hóa đồ thị tĩnh (Pandas Line Chart) thành Biểu Đồ Tương Tác Kép với thư viện `recharts`.
+---
 
-## ⚙️ Hướng Dẫn Cài Đặt (Setup & Run)
-**1. Khởi chạy Backend (Dữ liệu API & Crawl):**
+## 📂 CẤU TRÚC THƯ MỤC NỘP BÀI
+Để đảm bảo chấm điểm thuận tiện, dự án được bố cục như sau:
+
+- **[`Project/`](./Project):** Thư mục chính chứa mã nguồn.
+  - **[`backend/`](./Project/backend):** API Server (Flask), xử lý logic 100%.
+  - **[`frontend/`](./Project/frontend):** Giao diện người dùng (React/Vite/Recharts).
+  - **[`OUTPUT/`](./Project/OUTPUT):** **NƠI CHỨA CÁC SẢN PHẨM GIAO NỘP** (Notebook, Mini Report, Dataset).
+- **[`START_PDS.py`](./START_PDS.py):** File thực thi "Một Click" để khởi động toàn bộ dự án.
+
+---
+
+## 🛠️ HƯỚNG DẪN KHỞI CHẠY (QUAN TRỌNG)
+Thay vì chạy từng thư mục riêng lẻ, bạn chỉ cần chạy file **`START_PDS.py`** tại thư mục này:
+
 ```bash
-cd Project/backend
-pip install -r requirements.txt
-python api.py
+python START_PDS.py
 ```
 
-**2. Khởi chạy Giao Diện Frontend (React):**
-```bash
-cd Project/frontend
-npm install
-npm run dev
-```
+Sau khi chạy, hãy mở trình duyệt:
+- **Giao diện Dashboard:** [http://localhost:5173](http://localhost:5173)
+- **API Check:** [http://localhost:5000/api/silver-price](http://localhost:5000/api/silver-price)
 
-**3. Khởi chạy Báo Cáo Phân Tích (Jupyter Notebook):**
-Mở tệp `Project/backend/Phase3_Analysis.ipynb` bằng VS Code và chọn "Run All", hoặc chạy lệnh:
-```bash
-cd Project/backend
-jupyter notebook Phase3_Analysis.ipynb
-```
+---
 
-> Mọi phân tích chuyên sâu (Insights) đã được đóng thành tệp `Mini_Report_Phase3.md` tại thư mục backend.
+## 📝 DANH MỤC SẢN PHẨM NỘP BÀI (Deliverables)
+Toàn bộ sản phẩm được yêu cầu đều nằm trong thư mục **`Project/OUTPUT/`**:
+1.  **Báo cáo (Mini Report):** `Mini_Report.md` (2 trang, phân tích sâu).
+2.  **Mã nguồn phân tích (Notebook):** `Silver_Analysis_Final.ipynb`.
+3.  **Dữ liệu (Dataset):** `silver_cleaned_data.csv` và `silver_raw_data.csv`.
+
+---
+*Mọi chi tiết về mã nguồn vui lòng xem thêm các file README.md bên trong từng thư mục con.*

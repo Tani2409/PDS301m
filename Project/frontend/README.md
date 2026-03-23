@@ -1,16 +1,22 @@
-# React + Vite
+# 🎨 SilverTrack Frontend (React View Layer)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Giao diện tương tác hiện đại dành cho nhà đầu tư bạc, tập trung vào trải nghiệm người dùng (UX) và trực quan hóa dữ liệu.
 
-Currently, two official plugins are available:
+## 🚀 Tính năng chính
+- **Dashboard Market:** Tự động cập nhật giá Live và so sánh các thương hiệu Việt Nam (SJC, DOJI, PNJ).
+- **Interactive Charts:** Biểu đồ lịch sử 2 năm và biểu đồ mật độ giá (Histogram) sinh động.
+- **Finance Calculators:** Bộ 4 công cụ tính toán tài chính giúp người dùng ra quyết định mua/bán.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧩 Cấu trúc Component (`src/components/`)
+- **`Market/`**: Chứa các thẻ giá Live và bảng giá thương hiệu.
+- **`Analytics/`**: Chứa biểu đồ Recharts (LineChart & Histogram).
+- **`Calculators/`**: Chứa các máy tính quy đổi, rủi ro và lợi nhuận.
 
-## React Compiler
+## ⚡ Tech Stack
+- **Vite:** Công cụ build cực nhanh.
+- **React:** Quản lý State và UI.
+- **Recharts:** Thư viện biểu đồ mạnh mẽ.
+- **Vanilla CSS:** Toàn bộ giao diện được viết tay (Custom CSS) để đảm bảo tính thẩm mỹ cao nhất.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Cấu hình API
+Frontend gọi API mặc định tại `http://localhost:5000`. Mọi logic tính toán đều được đẩy về Backend để đảm bảo tính chính xác và bảo mật.

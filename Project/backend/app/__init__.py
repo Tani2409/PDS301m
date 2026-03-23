@@ -5,8 +5,8 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
     
-    # Đăng ký các route
-    from .routes import register_routes
-    register_routes(app)
+    # Đăng ký Blueprint từ routes.py
+    from .routes import api_bp
+    app.register_blueprint(api_bp)
     
     return app

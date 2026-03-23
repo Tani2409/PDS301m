@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import PriceConverter from './components/PriceConverter';
-import SpreadRisk from './components/SpreadRisk';
-import ProfitBankCompare from './components/ProfitBankCompare';
-import MarketDashboard from './components/MarketDashboard';
-import LiveTicker from './components/LiveTicker';
-import SilverChart from './components/SilverChart';
-import SilverHistogram from './components/SilverHistogram';
-import SilverCalculator from './components/SilverCalculator';
+import PriceConverter from './components/Calculators/PriceConverter';
+import SpreadRisk from './components/Calculators/SpreadRisk';
+import ProfitBankCompare from './components/Calculators/ProfitBankCompare';
+import MarketDashboard from './components/Market/MarketDashboard';
+import LiveTicker from './components/Market/LiveTicker';
+import SilverChart from './components/Analytics/SilverChart';
+import SilverHistogram from './components/Analytics/SilverHistogram';
+import SilverCalculator from './components/Calculators/SilverCalculator';
 import './index.css';
 
 function App() {

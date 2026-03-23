@@ -1,14 +1,30 @@
 import { useState } from 'react';
-import { convertSilverPrice } from '../utils/silverLogic';
 
 export default function PriceConverter() {
   const [usdOz, setUsdOz] = useState(30.5);
   const [exchangeRate, setExchangeRate] = useState(25400);
   const [result, setResult] = useState(null);
 
-  const handleConvert = () => {
-    const res = convertSilverPrice(Number(usdOz), Number(exchangeRate));
-    setResult(res);
+  const handleConvert = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/calculate/conversion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: 1, // 1 lượng
+          unit: 'tael',
+          purity: 1.0,
+          live_price: Number(usdOz),
+          usd_vnd: Number(exchangeRate)
+        })
+      });
+      const res = await response.json();
+      if (res.status === 'success') {
+        setResult(res.result.vnd);
+      }
+    } catch (err) {
+      console.error("Lỗi quy đổi giá từ BE:", err);
+    }
   };
 
   return (
