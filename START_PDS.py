@@ -36,7 +36,8 @@ def main():
     
     print("\n--- Danh mục truy cập ---")
     print("Silver UI: http://localhost:5173")
-    print("API: http://localhost:5000/api/silver-price")
+    print("Swagger UI: http://localhost:5000/apidocs (Test API tại đây)")
+    print("API Base: http://localhost:5000/api")
     print("\nNhấn Ctrl + C để dừng toàn bộ.")
 
     try:
